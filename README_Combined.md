@@ -23,7 +23,7 @@ Attention is then computed as
 
 $$
 A =
-\operatorname{softmax}
+\text{softmax}
 \left(
 \frac{QK^T}{\sqrt{d_h}} + M
 \right).
