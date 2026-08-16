@@ -1,0 +1,7 @@
+# Pinned to the versions the reported bAbI results were produced under.
+# Loosen only if you re-run the full 5-seed sweep and confirm the numbers hold.
+torch>=2.0,<3.0
+transformers>=4.30          # get_cosine_schedule_with_warmup only
+numpy>=1.24
+matplotlib>=3.7
+seaborn>=0.12

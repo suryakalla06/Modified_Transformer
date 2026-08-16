@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Experiment outputs — regenerate with the run scripts, never commit.
+runs/
+outputs/
+*.png
+*.csv
+*.pt
+*.ckpt
+
+.ipynb_checkpoints/
+.DS_Store
