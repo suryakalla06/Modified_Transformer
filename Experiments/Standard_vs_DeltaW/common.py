@@ -44,10 +44,23 @@ class Config:
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
-BABI_DIR = (
+# Dataset location.
+#
+# These experiments were originally run on Kaggle, where the bAbI tasks sit at a
+# fixed input path. Hardcoding that path meant the code could not be run, or the
+# results reproduced, anywhere else. Both are now environment-overridable and
+# fall back to the original Kaggle location, so existing notebooks keep working:
+#
+#     export BABI_DIR=/path/to/tasks_1-20_v1-2/en-10k
+#     export OUT_ROOT=./runs
+#
+BABI_DIR = os.environ.get(
+    "BABI_DIR",
     "/kaggle/input/datasets/roblexnana/"
-    "the-babi-tasks-for-nlp-qa-system/tasks_1-20_v1-2/en-10k"
+    "the-babi-tasks-for-nlp-qa-system/tasks_1-20_v1-2/en-10k",
 )
+
+OUT_ROOT = os.environ.get("OUT_ROOT", "/kaggle/working")
 
 SEEDS = [42, 43, 44, 45, 46]
 

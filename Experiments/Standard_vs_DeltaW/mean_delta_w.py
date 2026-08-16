@@ -5,6 +5,7 @@ import torch.nn as nn
 
 from common import (
     BABI_DIR,
+    OUT_ROOT,
     SEEDS,
     Config,
     count_params,
@@ -24,7 +25,7 @@ from common import (
 from common import HyperNet, DynamicAttentionBlock
 
 
-OUT = Path("/kaggle/working/mean_delta_w_eval")
+OUT = Path(OUT_ROOT) / "mean_delta_w_eval"
 
 
 class MeanDeltaW(nn.Module):

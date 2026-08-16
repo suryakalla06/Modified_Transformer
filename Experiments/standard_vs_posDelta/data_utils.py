@@ -21,7 +21,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-OUT = Path("/kaggle/working/standard_vs_posdelta")
+OUT_ROOT = os.environ.get("OUT_ROOT", "/kaggle/working")
+OUT = Path(OUT_ROOT) / "standard_vs_posdelta"
 OUT.mkdir(parents=True, exist_ok=True)
 
 
@@ -50,9 +51,10 @@ class Config:
 
 SEEDS = [42, 43, 44, 45, 46]
 
-BABI_DIR = (
+BABI_DIR = os.environ.get(
+    "BABI_DIR",
     "/kaggle/input/datasets/roblexnana/"
-    "the-babi-tasks-for-nlp-qa-system/tasks_1-20_v1-2/en-10k"
+    "the-babi-tasks-for-nlp-qa-system/tasks_1-20_v1-2/en-10k",
 )
 
 

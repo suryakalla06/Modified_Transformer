@@ -5,6 +5,7 @@ import torch.nn as nn
 
 from common import (
     BABI_DIR,
+    OUT_ROOT,
     SEEDS,
     Config,
     count_params,
@@ -23,7 +24,7 @@ from common import (
 from common import HyperNet, DynamicAttentionBlock
 
 
-OUT = Path("/kaggle/working/cls_delta_w_eval")
+OUT = Path(OUT_ROOT) / "cls_delta_w_eval"
 
 
 class CLSDeltaW(nn.Module):

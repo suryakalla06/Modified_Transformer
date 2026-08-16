@@ -6,6 +6,7 @@ import torch.nn.functional as F
 
 from common import (
     BABI_DIR,
+    OUT_ROOT,
     SEEDS,
     Config,
     count_params,
@@ -22,7 +23,7 @@ from common import (
 )
 
 
-OUT = Path("/kaggle/working/baseline_eval")
+OUT = Path(OUT_ROOT) / "baseline_eval"
 
 
 class WideAttentionBlock(nn.Module):
