@@ -410,3 +410,58 @@ The second folder answers:
 
 Together, these experiments form a study of **adaptive attention through
 structured modifications of the Q/K projections**.
+
+---
+
+# 10. Running Locally
+
+The experiments were developed on Kaggle and originally hardcoded that
+platform's paths, which meant the results could not be reproduced anywhere
+else. Both the dataset location and the output directory are now read from the
+environment, falling back to the original Kaggle paths so existing notebooks
+are unaffected.
+
+```bash
+pip install -r requirements.txt
+
+export BABI_DIR=/path/to/tasks_1-20_v1-2/en-10k
+export OUT_ROOT=./runs
+
+cd Experiments/standard_vs_posDelta && python standard_vs_posdelta.py
+cd Experiments/Standard_vs_DeltaW   && python baseline.py
+```
+
+Each run writes training curves, attention maps, and — for the PosDelta
+experiment — per-seed and summary CSVs under `$OUT_ROOT`.
+
+---
+
+# 11. Reading the Results Honestly
+
+Several of the headline gains in this study sit on a standard deviation
+comparable to the effect itself:
+
+| Result | Gain | sd across seeds |
+|---|---:|---:|
+| Mean → ΔW on `qa1` | +8.14 pp | 9.93 pp |
+| CLS → ΔW on `qa15` | +4.44 pp | 12.99 pp |
+| PosDelta on `qa19` | +8.46 pp | 5.49 pp |
+
+Quoted as bare means, all three read as findings. Quoted with their spread, the
+first two are not yet distinguishable from the choice of random seed. Since
+that distinction is easy to lose when a table is copied into a slide,
+`analysis/seed_variance.py` makes it mechanical:
+
+```bash
+python analysis/seed_variance.py runs/standard_vs_posdelta/comparison_results.csv
+```
+
+For every task it reports the observed difference alongside a paired bootstrap
+interval over seeds — paired because both variants are evaluated on the same
+seed set — and marks a comparison `SEPARATED` only when that interval excludes
+zero.
+
+With five seeds the interval is itself estimated from five numbers, so this is
+a guard against over-claiming rather than a significance test. `not separated`
+means the experiment cannot tell the variants apart. It does not mean they are
+equal, and the honest fix is more seeds, not a smaller interval.
